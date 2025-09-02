@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
   AppTheme._();
@@ -41,16 +40,11 @@ class AppTheme {
       primarySwatch: Colors.green,
       primaryColor: primaryColor,
       scaffoldBackgroundColor: backgroundColor,
-      appBarTheme: AppBarTheme(
+      appBarTheme: const AppBarTheme(
         backgroundColor: primaryColor,
         foregroundColor: Colors.white,
         elevation: 2,
         centerTitle: false,
-        titleTextStyle: GoogleFonts.roboto(
-          fontSize: 20,
-          fontWeight: FontWeight.w600,
-          color: Colors.white,
-        ),
       ),
       cardTheme: CardThemeData(
         color: surfaceColor,
@@ -107,53 +101,6 @@ class AppTheme {
           borderSide: const BorderSide(color: errorColor, width: 2),
         ),
       ),
-      textTheme: GoogleFonts.robotoTextTheme().copyWith(
-        displayLarge: GoogleFonts.roboto(
-          fontSize: 32,
-          fontWeight: FontWeight.bold,
-          color: textPrimary,
-        ),
-        displayMedium: GoogleFonts.roboto(
-          fontSize: 28,
-          fontWeight: FontWeight.bold,
-          color: textPrimary,
-        ),
-        displaySmall: GoogleFonts.roboto(
-          fontSize: 24,
-          fontWeight: FontWeight.w600,
-          color: textPrimary,
-        ),
-        headlineLarge: GoogleFonts.roboto(
-          fontSize: 20,
-          fontWeight: FontWeight.w600,
-          color: textPrimary,
-        ),
-        headlineMedium: GoogleFonts.roboto(
-          fontSize: 18,
-          fontWeight: FontWeight.w600,
-          color: textPrimary,
-        ),
-        headlineSmall: GoogleFonts.roboto(
-          fontSize: 16,
-          fontWeight: FontWeight.w600,
-          color: textPrimary,
-        ),
-        bodyLarge: GoogleFonts.roboto(
-          fontSize: 16,
-          fontWeight: FontWeight.normal,
-          color: textPrimary,
-        ),
-        bodyMedium: GoogleFonts.roboto(
-          fontSize: 14,
-          fontWeight: FontWeight.normal,
-          color: textPrimary,
-        ),
-        bodySmall: GoogleFonts.roboto(
-          fontSize: 12,
-          fontWeight: FontWeight.normal,
-          color: textSecondary,
-        ),
-      ),
       colorScheme: const ColorScheme.light(
         primary: primaryColor,
         secondary: secondaryColor,
@@ -178,34 +125,17 @@ class AppTheme {
       primarySwatch: Colors.green,
       primaryColor: primaryColor,
       scaffoldBackgroundColor: const Color(0xFF121212),
-      appBarTheme: AppBarTheme(
+      appBarTheme: const AppBarTheme(
         backgroundColor: const Color(0xFF1E1E1E),
         foregroundColor: Colors.white,
         elevation: 2,
         centerTitle: false,
-        titleTextStyle: GoogleFonts.roboto(
-          fontSize: 20,
-          fontWeight: FontWeight.w600,
-          color: Colors.white,
-        ),
       ),
       cardTheme: CardThemeData(
         color: const Color(0xFF1E1E1E),
         elevation: 4,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
-        ),
-      ),
-      textTheme: GoogleFonts.robotoTextTheme().copyWith(
-        displayLarge: GoogleFonts.roboto(
-          fontSize: 32,
-          fontWeight: FontWeight.bold,
-          color: Colors.white,
-        ),
-        bodyLarge: GoogleFonts.roboto(
-          fontSize: 16,
-          fontWeight: FontWeight.normal,
-          color: Colors.white70,
         ),
       ),
       colorScheme: const ColorScheme.dark(
