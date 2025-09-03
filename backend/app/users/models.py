@@ -15,7 +15,7 @@ class UserRole(str, enum.Enum):
 
 class User(Base):
     __tablename__ = "users"
-    
+        
     # Primary Key
     id = Column(CHAR(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     

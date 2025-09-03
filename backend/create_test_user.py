@@ -1,86 +1,75 @@
-#!/usr/bin/env python3
-"""
-Script para crear un usuario de prueba
-"""
+# create_test_user.py
 import sys
-from sqlalchemy.orm import Session
-from app.database.connection import SessionLocal, create_tables
-from app.users.models import User, UserRole
+import os
+
+# Asegurar que Python encuentre el módulo app
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
+from app.database.connection import engine, Base
+from app.users.models import User
+from app.database.models import Department
 from app.core.security import get_password_hash
 
+def recreate_database():
+    """Recrear todas las tablas - ELIMINA TODOS LOS DATOS"""
+    print("🗑️  Eliminando tablas existentes...")
+    Base.metadata.drop_all(engine)
+    
+    print("🏗️  Creando tablas con estructura actualizada...")
+    Base.metadata.create_all(engine)
+    
+    print("✅ Base de datos recreada exitosamente")
 
-def create_test_user():
-    """Crear usuario de prueba para login"""
-    
-    print("🔧 Creando tablas de base de datos...")
-    create_tables()
-    
-    print("👤 Creando usuario de prueba...")
-    
-    # Datos del usuario de prueba
-    user_data = {
-        "email": "admin@municipalidad.gob.cl",
-        "password": "123456",
-        "first_name": "Admin",
-        "last_name": "Municipal",
-        "phone": "+56912345678",
-        "department_id": "dept-001",
-        "department_name": "Administración General",
-        "role": UserRole.ADMIN
-    }
-    
-    db: Session = SessionLocal()
+def create_test_data():
+    """Crear datos de prueba"""
+    from sqlalchemy.orm import sessionmaker
+    SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+    db = SessionLocal()
     
     try:
-        # Verificar si el usuario ya existe
-        existing_user = db.query(User).filter(User.email == user_data["email"]).first()
+        # Crear departamento de prueba
+        department = Department(
+            name="Administración",
+            code="ADM",
+            description="Departamento de Administración Municipal",
+            is_active=True
+        )
+        db.add(department)
+        db.flush()  # Para obtener el ID
         
-        if existing_user:
-            print(f"❌ El usuario {user_data['email']} ya existe")
-            print(f"📧 Email: {existing_user.email}")
-            print(f"👤 Nombre: {existing_user.full_name}")
-            print(f"🏢 Departamento: {existing_user.department_name}")
-            print(f"🔑 Rol: {existing_user.role.value}")
-            return
-        
-        # Crear nuevo usuario
-        hashed_password = get_password_hash(user_data["password"])
-        
-        user = User(
-            email=user_data["email"],
-            password_hash=hashed_password,
-            first_name=user_data["first_name"],
-            last_name=user_data["last_name"],
-            phone=user_data["phone"],
-            department_id=user_data["department_id"],
-            department_name=user_data["department_name"],
-            role=user_data["role"],
+        # Crear usuario de prueba
+        test_user = User(
+            email="admin@municipalidad.gob.cl",
+            password_hash=get_password_hash("123456"),
+            first_name="Admin",
+            last_name="Municipal",
+            department_id=department.id,
+            department_name=department.name,
+            role="admin",
             is_active=True
         )
         
-        db.add(user)
+        db.add(test_user)
         db.commit()
-        db.refresh(user)
         
-        print("✅ Usuario de prueba creado exitosamente!")
-        print("━" * 50)
-        print("📋 DATOS PARA LOGIN:")
-        print(f"📧 Email: {user.email}")
-        print(f"🔒 Password: 123456")
-        print(f"👤 Nombre: {user.full_name}")
-        print(f"🏢 Departamento: {user.department_name}")
-        print(f"🔑 Rol: {user.role.value}")
-        print("━" * 50)
-        print("🚀 Ahora puedes hacer login desde tu app Flutter!")
+        print("👤 Usuario de prueba creado:")
+        print(f"   📧 Email: {test_user.email}")
+        print(f"   🔑 Password: 123456")
+        print(f"   🏢 Departamento: {test_user.department_name}")
         
     except Exception as e:
+        print(f"❌ Error creando datos de prueba: {e}")
         db.rollback()
-        print(f"❌ Error creando usuario: {e}")
-        sys.exit(1)
-        
     finally:
         db.close()
 
-
 if __name__ == "__main__":
-    create_test_user()
+    print("🔄 RECREAR BASE DE DATOS")
+    print("⚠️  ADVERTENCIA: Esto eliminará TODOS los datos existentes")
+    
+    confirm = input("¿Continuar? (yes/no): ")
+    if confirm.lower() == 'yes':
+        recreate_database()
+        create_test_data()
+    else:
+        print("❌ Operación cancelada")
