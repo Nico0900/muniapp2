@@ -216,28 +216,28 @@ class LoginPage extends GetView<AuthController> {
         ));
   }
 
-  Widget _buildSystemInfo() {
-    return Container(
-      padding: EdgeInsets.all(12.w),
-      decoration: BoxDecoration(
-        color: Colors.grey[50],
-        borderRadius: BorderRadius.circular(8.r),
-        border: Border.all(color: Colors.grey[200]!),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(Icons.info_outline, size: 16.sp, color: AppTheme.textSecondary),
-          SizedBox(width: 8.w),
-          Expanded(
-            child: Text(
-              'Sistema de Gestión Documental v1.0.0',
-              style: TextStyle(fontSize: 12.sp, color: AppTheme.textSecondary),
-              textAlign: TextAlign.center,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget _buildSystemInfo() {
+  //   return Container(
+  //     padding: EdgeInsets.all(12.w),
+  //     decoration: BoxDecoration(
+  //       color: Colors.grey[50],
+  //       borderRadius: BorderRadius.circular(8.r),
+  //       border: Border.all(color: Colors.grey[200]!),
+  //     ),
+  //     child: Row(
+  //       mainAxisAlignment: MainAxisAlignment.center,
+  //       children: [
+  //         Icon(Icons.info_outline, size: 16.sp, color: AppTheme.textSecondary),
+  //         SizedBox(width: 8.w),
+  //         Expanded(
+  //           child: Text(
+  //             'Sistema de Gestión Documental v1.0.0',
+  //             style: TextStyle(fontSize: 12.sp, color: AppTheme.textSecondary),
+  //             textAlign: TextAlign.center,
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 }
