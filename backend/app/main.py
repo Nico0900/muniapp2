@@ -31,13 +31,26 @@ app = FastAPI(
 )
 
 # Middleware CORS
+# # ⚠️ Ajusta los orígenes según tu frontend real
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.ALLOWED_ORIGINS,
+    allow_origins=["*"],  # permite cualquier origen
     allow_credentials=True,
-    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# app.add_middleware(
+#     CORSMiddleware,
+#     allow_origins=[
+#         "http://localhost:5173",  # Frontend Flutter
+#         "http://127.0.0.1:5173",  # Frontend Flutter
+#         "http://localhost:8000",  # Frontend Flutter
+#     ],
+#     allow_credentials=True,
+#     allow_methods=["*"],  # permite GET, POST, PUT, DELETE, OPTIONS
+#     allow_headers=["*"],
+# )
 
 # Middleware de hosts confiables
 app.add_middleware(

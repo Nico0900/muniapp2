@@ -300,7 +300,7 @@ flutter pub get
 
 ```dart
 // En api_constants.dart
-static const String baseUrl = 'http://localhost:3000/api';
+static const String baseUrl = 'http://localhost:8000/api';
 ```
 
 ### **3. Ejecución**
